@@ -1,15 +1,17 @@
-import React from "react";
-import Header from "./Header";
-import { Outlet } from "react-router-dom";
-import Footer from "./Footer";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <Outlet />
+      <div className='min-h-[calc(100vh-384px)]'>
+        <Outlet />
+      </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

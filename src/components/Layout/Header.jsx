@@ -1,81 +1,105 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import Button from "../Button";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Drawer, Button, Typography } from 'antd';
+import { CloseOutlined, MenuOutlined } from '@ant-design/icons';
+
+const { Title } = Typography;
+
 const Header = () => {
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [ show, setShow ] = useState( false );
+  const handleClose = () => setShow( false );
+  const handleShow = () => setShow( true );
 
   return (
-    <>
-      <div className="header">
-        <nav className="navbar navbar-expand-lg fixed-top border-bottom">
-          <div className="container align-items-center">
-            <NavLink className="header-logo" to="">
-              <img
-                src="/assets/images/vcare trans 2.png"
-                alt="header logo"
-                className="img-fluid"
-              />
-            </NavLink>
+    <header className="header bg-white shadow-md  w-full z-50">
+      <nav className="navbar container mx-auto py-4 flex items-center justify-between">
+        {/* Logo */}
+        <NavLink className="header-logo ms-4" to="/">
+          <img
+            src="/assets/images/vcare trans 2.png"
+            alt="header logo"
+            className="h-10"
+          />
+        </NavLink>
 
-            <div className="nav-links d-lg-flex d-none">
-              <NavLink className="nav-link " to="">
-                Home
-              </NavLink>
-              <NavLink className="nav-link" to="/about">
-                About
-              </NavLink>
-              <NavLink className="nav-link " to="/services">
-                Services
-              </NavLink>
-              <NavLink className="nav-link " to="/benefits">
-                Benefits
-              </NavLink>
-            </div>
-            <div className=" d-lg-flex d-none">
-              <Button text={"Contact us"} width={"150px"} backgroundColor={'#008080'} />
-            </div>
-            <div className="menu-icon d-lg-none d-flex" onClick={handleShow}>
-              <iconify-icon icon="tabler:menu-3"></iconify-icon>
-            </div>
-          </div>
-        </nav>
-        <Offcanvas show={show} onHide={handleClose} className="d-lg-none">
-          <Offcanvas.Header closeButton className="border-bottom">
-            <Offcanvas.Title>
-              <NavLink className="header-logo" to="">
-                <img
-                  src="/assets/images/vcare trans 2.png"
-                  alt="header logo"
-                  className="img-fluid"
-                />
-              </NavLink>
-            </Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div className="nav-links d-lg-none mb-4 d-flex flex-column">
-              <NavLink className="nav-link " to="" onClick={handleClose}>
-                Home
-              </NavLink>
-              <NavLink className="nav-link" to="/about"  onClick={handleClose}>
-                About
-              </NavLink>
-              <NavLink className="nav-link " to="/services"  onClick={handleClose}>
-                Services
-              </NavLink>
-              <NavLink className="nav-link " to="/benefits"  onClick={handleClose}>
-                Benefits
-              </NavLink>
-            </div>
-            <div className="header-button d-lg-none d-block">
-              <Button text={"Contact us"} width={"150px"} backgroundColor={'#008080'} />
-            </div>
-          </Offcanvas.Body>
-        </Offcanvas>
-      </div>
-    </>
+        {/* Desktop Links */}
+        <div className="nav-links hidden lg:flex space-x-20">
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 font-semibold" to="/">
+            Home
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 font-semibold" to="/about">
+            About
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 font-semibold" to="/services">
+            Services
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 font-semibold" to="/benefits">
+            Benefits
+          </NavLink>
+        </div>
+
+        {/* Desktop Button */}
+        <div className="hidden lg:flex">
+          <Button
+            type="primary"
+            className="bg-teal-500 hover:bg-teal-600 text-white font-semibold border-none rounded-lg"
+            style={{
+              width: '150px',
+            }}
+          >
+            Contact Us
+          </Button>
+        </div>
+
+        {/* Mobile Menu Icon */}
+        <div className="menu-icon lg:hidden flex items-center">
+          <MenuOutlined className="text-teal-800 text-2xl" onClick={handleShow} />
+        </div>
+      </nav>
+
+      {/* Mobile Drawer */}
+      <Drawer
+        title={
+          <NavLink className="header-logo" to="/" onClick={handleClose}>
+            <img
+              src="/assets/images/vcare trans 2.png"
+              alt="header logo"
+              className="h-8"
+            />
+          </NavLink>
+        }
+        placement="left"
+        onClose={handleClose}
+        open={show}
+        closeIcon={<CloseOutlined className="text-teal-800 text-xl" />}
+        className="lg:hidden"
+      >
+        <div className="nav-links flex flex-col space-y-6 mt-4">
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 text-lg" to="/" onClick={handleClose}>
+            Home
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 text-lg" to="/about" onClick={handleClose}>
+            About
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 text-lg" to="/services" onClick={handleClose}>
+            Services
+          </NavLink>
+          <NavLink className="nav-link text-teal-800 hover:text-teal-600 text-lg" to="/benefits" onClick={handleClose}>
+            Benefits
+          </NavLink>
+        </div>
+
+        <div className="header-button mt-6">
+          <Button
+            type="primary"
+            className="bg-teal-500 hover:bg-teal-600 text-white font-semibold w-full rounded-lg"
+            onClick={handleClose}
+          >
+            Contact Us
+          </Button>
+        </div>
+      </Drawer>
+    </header>
   );
 };
 

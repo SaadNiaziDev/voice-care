@@ -1,9 +1,10 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import { Layout } from "./components";
-import { Home } from "./pages";
+import { About, Contact, Home, Services } from "./pages";
+import NotFound from "./pages/NotFound";
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createHashRouter( [
     {
       path: "/",
       element: <Layout />,
@@ -12,13 +13,28 @@ function App() {
           path: "",
           element: <Home />,
         },
+        {
+          path: "about",
+          element: <About />,
+        },
+        {
+          path: "services",
+          element: <Services />,
+        },
+        {
+          path: "contact",
+          element: <Contact />,
+        },
+        {
+          path: "*",
+          element: <NotFound />,
+        }
       ],
     },
-  ]);
+  ] );
   return (
     <>
       <RouterProvider router={router} />
-      
     </>
   );
 }
